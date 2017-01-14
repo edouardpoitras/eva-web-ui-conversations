@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    {% include "alerts.html" %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Interactions for conversation {{ conversation['id'] }}</h1>
+            <table id="interactions" class="table table-striped table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <td>Date/Time</td>
+                        <td>Input</td>
+                        <td>Plugin</td>
+                        <td>Output</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for interaction in conversation['interactions'] %}
+                        <tr>
+                            <td>
+                                {{ interaction['opened'] }}
+                            </td>
+                            <td>
+                                {{ interaction['input_text'] }}
+                            </td>
+                            <td>
+                                {% if interaction['output_text_alterations'] %}
+                                    {{ interaction['output_text_alterations'][0]['plugin'] }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ interaction['output_text'] }}
+                            </td>
+                            <td>
+                                <a href="/conversations/{{ conversation['id'] }}/interaction/{{ interaction['id'] }}">Details</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    {% include "alerts.html" %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Interaction details for {{ interaction['id'] }}</h1>
+            <strong>Alterations performed before input was processed: </strong>
+            <table id="input_alterations" class="table table-striped table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <td>Plugin</td>
+                        <td>New Input</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for alteration in interaction['input_text_alterations'] %}
+                        <tr>
+                            <td>
+                                {{ alteration['plugin'] }}
+                            </td>
+                            <td>
+                                {{ alteration['new_text'] }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <strong>Alterations performed on output: </strong>
+            <table id="output_alterations" class="table table-striped table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <td>Plugin</td>
+                        <td>New Output</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for alteration in interaction['output_text_alterations'] %}
+                        <tr>
+                            <td>
+                                {{ alteration['plugin'] }}
+                            </td>
+                            <td>
+                                {{ alteration['new_text'] }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

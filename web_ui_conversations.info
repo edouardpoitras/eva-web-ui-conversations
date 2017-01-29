@@ -1,4 +1,4 @@
 name = Web UI Conversations
 description = Adds a way of viewing conversations in the Web UI.
-version = 0.1.0
+version = 0.2.0
 dependencies = web_ui, conversations

@@ -17,23 +17,26 @@ def web_ui_start(app):
     app.add_url_rule('/conversations/<conversation_id>', 'conversation_view', conversation_view)
     app.add_url_rule('/conversations/<conversation_id>/interaction/<interaction_id>', 'interaction_view', interaction_view)
 
-@gossip.register('eva.web_ui.menu_items', provides=['web_ui_conversations'])
-def web_ui_menu_items():
+@gossip.register('eva.web_ui.menu_items', needs=['web_ui'], provides=['web_ui_conversations'])
+def web_ui_menu_items(menu_items):
     menu_item = {'path': '/conversations', 'title': 'Conversations'}
-    conf['plugins']['web_ui']['config']['menu_items'].append(menu_item)
+    menu_items.append(menu_item)
 
 def conversations():
-    menu_items = conf['plugins']['web_ui']['module'].ready_menu_items()
+    menu_items = []
+    gossip.trigger('eva.web_ui.menu_items', menu_items=menu_items)
     conversations = conf['plugins']['conversations']['module'].Conversation.objects().order_by('-id')
     return render_template_string(conversations_markup, menu_items=menu_items, conversations=conversations)
 
 def conversation_view(conversation_id):
-    menu_items = conf['plugins']['web_ui']['module'].ready_menu_items()
+    menu_items = []
+    gossip.trigger('eva.web_ui.menu_items', menu_items=menu_items)
     conversation = conf['plugins']['conversations']['module'].Conversation.objects(id=conversation_id).first()
     return render_template_string(conversation_markup, menu_items=menu_items, conversation=conversation)
 
 def interaction_view(conversation_id, interaction_id):
-    menu_items = conf['plugins']['web_ui']['module'].ready_menu_items()
+    menu_items = []
+    gossip.trigger('eva.web_ui.menu_items', menu_items=menu_items)
     conversation = conf['plugins']['conversations']['module'].Conversation.objects(id=conversation_id).first()
     for inter in conversation.interactions:
         if str(inter.id) == interaction_id:

@@ -18,7 +18,7 @@
                     {% for alteration in interaction['input_text_alterations'] %}
                         <tr>
                             <td>
-                                {{ alteration['plugin'] }}
+                                {{ alteration['plugin_id'] }}
                             </td>
                             <td>
                                 {{ alteration['new_text'] }}
@@ -39,7 +39,7 @@
                     {% for alteration in interaction['output_text_alterations'] %}
                         <tr>
                             <td>
-                                {{ alteration['plugin'] }}
+                                {{ alteration['plugin_id'] }}
                             </td>
                             <td>
                                 {{ alteration['new_text'] }}

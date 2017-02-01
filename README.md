@@ -1,7 +1,9 @@
 Web UI Conversations
 ====================
 
-An Eva plugin that adds a way of viewing conversations in the Web UI.
+An Eva plugin that adds a way of viewing past conversations in the Web UI.
+
+![Web UI Conversations](/screenshot.png?raw=true "https://127.0.0.1:8080/conversations")
 
 ## Installation
 
